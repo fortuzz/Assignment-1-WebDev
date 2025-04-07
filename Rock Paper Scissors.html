@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors | Tanaka's Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #6B8E23;
+            --olive-light: #A2B575;
+            --olive-dark: #556B2F;
+            --light-bg: #f9f9f9;
+            --dark-text: #333333;
+            --white-transparent: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--light-bg) 0%, var(--olive-light) 50%, var(--olive-dark) 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .game-card {
+            background-color: var(--white-transparent);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-top: 2rem;
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--olive-dark);
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .players-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .player-section {
+            width: 45%;
+            min-width: 300px;
+            background-color: var(--white-transparent);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .player-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .player-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--olive-green);
+            margin: 0;
+        }
+
+        .edit-name {
+            background: none;
+            border: none;
+            color: var(--olive-dark);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .choices {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .choice-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: white;
+            border: 3px solid var(--olive-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--olive-dark);
+        }
+
+        .choice-btn:hover {
+            transform: scale(1.1);
+            background-color: var(--olive-light);
+            color: white;
+        }
+
+        .choice-btn.selected {
+            background-color: var(--olive-green);
+            color: white;
+            border-color: var(--olive-dark);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(107, 142, 35, 0.5);
+        }
+
+        .result-area {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: rgba(107, 142, 35, 0.1);
+            border-radius: 10px;
+            border-left: 5px solid var(--olive-green);
+            text-align: center;
+        }
+
+        #result {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--olive-dark);
+            margin-bottom: 1rem;
+        }
+
+        .score-display {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .score {
+            font-weight: 600;
+            color: var(--olive-dark);
+        }
+
+        #reset-btn {
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background-color: var(--olive-green);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #reset-btn:hover {
+            background-color: var(--olive-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(85, 107, 47, 0.3);
+        }
+
+        .player-turn .player-section {
+            position: relative;
+            box-shadow: 0 0 0 3px var(--olive-green);
+        }
+
+        .player-turn .player-section::after {
+            content: "🡆";
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--olive-green);
+            font-size: 2rem;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        .name-input {
+            font-family: 'Poppins', sans-serif;
+            padding: 0.5rem;
+            border: 2px solid var(--olive-light);
+            border-radius: 5px;
+            font-size: 1rem;
+            width: 70%;
+        }
+
+        .save-name {
+            background-color: var(--olive-green);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            margin-left: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .save-name:hover {
+            background-color: var(--olive-dark);
+        }
+
+        @media (max-width: 768px) {
+            .players-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .player-section {
+                width: 100%;
+            }
+            
+            .player-turn .player-section::after {
+                right: -15px;
+                font-size: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="game-card">
+            <h1>Rock Paper Scissors</h1>
+            <p style="text-align: center;">Challenge a friend to an epic duel!</p>
+            
+            <div class="players-container">
+                <div class="player-section" id="player1-section">
+                    <div class="player-header">
+                        <h2 class="player-name" id="player1-name">Player 1</h2>
+                        <button class="edit-name" onclick="editName('player1')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                    <div class="choices">
+                        <button class="choice-btn" data-choice="rock">✊</button>
+                        <button class="choice-btn" data-choice="paper">✋</button>
+                        <button class="choice-btn" data-choice="scissors">✌️</button>
+                    </div>
+                </div>
+                
+                <div class="player-section" id="player2-section">
+                    <div class="player-header">
+                        <h2 class="player-name" id="player2-name">Player 2</h2>
+                        <button class="edit-name" onclick="editName('player2')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                    <div class="choices">
+                        <button class="choice-btn" data-choice="rock">✊</button>
+                        <button class="choice-btn" data-choice="paper">✋</button>
+                        <button class="choice-btn" data-choice="scissors">✌️</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="result-area">
+                <div id="result">Player 1's turn to choose...</div>
+                <div class="score-display">
+                    <div><span id="player1-score-name">Player 1</span>: <span class="score" id="score1">0</span></div>
+                    <div><span id="player2-score-name">Player 2</span>: <span class="score" id="score2">0</span></div>
+                </div>
+                <button id="reset-btn">Reset Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Game state
+            const gameState = {
+                player1: {
+                    name: "Player 1",
+                    choice: null
+                },
+                player2: {
+                    name: "Player 2",
+                    choice: null
+                },
+                currentPlayer: 'player1',
+                scores: [0, 0]
+            };
+
+            // DOM elements
+            const choiceButtons = document.querySelectorAll('.choice-btn');
+            const resultDisplay = document.getElementById('result');
+            const scoreDisplays = [
+                document.getElementById('score1'),
+                document.getElementById('score2')
+            ];
+            const playerScoreNames = [
+                document.getElementById('player1-score-name'),
+                document.getElementById('player2-score-name')
+            ];
+            const resetBtn = document.getElementById('reset-btn');
+
+            // Initialize the game
+            function initGame() {
+                updateTurnIndicator();
+                updateScoreNames();
+            }
+
+            // Update whose turn it is
+            function updateTurnIndicator() {
+                document.querySelectorAll('.player-section').forEach(section => {
+                    section.classList.remove('player-turn');
+                });
+                document.getElementById(`${gameState.currentPlayer}-section`).classList.add('player-turn');
+                
+                const currentName = gameState[gameState.currentPlayer].name;
+                resultDisplay.textContent = `${currentName}'s turn to choose...`;
+            }
+
+            // Update player names in score display
+            function updateScoreNames() {
+                playerScoreNames[0].textContent = gameState.player1.name;
+                playerScoreNames[1].textContent = gameState.player2.name;
+            }
+
+            // Edit player name
+            window.editName = function(player) {
+                const currentName = gameState[player].name;
+                const newName = prompt(`Enter ${player}'s name:`, currentName);
+                
+                if (newName && newName.trim() !== '') {
+                    gameState[player].name = newName.trim();
+                    document.getElementById(`${player}-name`).textContent = newName.trim();
+                    updateScoreNames();
+                    
+                    if (gameState.currentPlayer === player) {
+                        updateTurnIndicator();
+                    }
+                }
+            };
+
+            // Handle choice selection
+            choiceButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const player = button.closest('.player-section').id.replace('-section', '');
+                    
+                    // Only allow current player to choose
+                    if (player !== gameState.currentPlayer) return;
+                    
+                    // Get the choice
+                    const choice = button.dataset.choice;
+                    gameState[player].choice = choice;
+                    
+                    // Highlight selected choice
+                    button.closest('.choices').querySelectorAll('.choice-btn').forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
+                    button.classList.add('selected');
+                    
+                    // Switch to next player or determine result
+                    if (gameState.currentPlayer === 'player1') {
+                        gameState.currentPlayer = 'player2';
+                    } else {
+                        determineWinner();
+                    }
+                    
+                    updateTurnIndicator();
+                });
+            });
+
+            // Determine the winner
+            function determineWinner() {
+                const p1Choice = gameState.player1.choice;
+                const p2Choice = gameState.player2.choice;
+                let result;
+                
+                if (p1Choice === p2Choice) {
+                    result = "It's a tie!";
+                } else if (
+                    (p1Choice === 'rock' && p2Choice === 'scissors') ||
+                    (p1Choice === 'paper' && p2Choice === 'rock') ||
+                    (p1Choice === 'scissors' && p2Choice === 'paper')
+                ) {
+                    result = `${gameState.player1.name} wins!`;
+                    gameState.scores[0]++;
+                } else {
+                    result = `${gameState.player2.name} wins!`;
+                    gameState.scores[1]++;
+                }
+                
+                resultDisplay.textContent = `${gameState.player1.name} chose ${p1Choice}, ${gameState.player2.name} chose ${p2Choice}. ${result}`;
+                scoreDisplays[0].textContent = gameState.scores[0];
+                scoreDisplays[1].textContent = gameState.scores[1];
+                
+                // Reset for next round
+                setTimeout(() => {
+                    gameState.player1.choice = null;
+                    gameState.player2.choice = null;
+                    gameState.currentPlayer = 'player1';
+                    updateTurnIndicator();
+                    
+                    // Clear selections
+                    document.querySelectorAll('.choice-btn').forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
+                }, 3000);
+            }
+
+            // Reset game
+            resetBtn.addEventListener('click', () => {
+                gameState.player1.choice = null;
+                gameState.player2.choice = null;
+                gameState.currentPlayer = 'player1';
+                gameState.scores = [0, 0];
+                scoreDisplays[0].textContent = '0';
+                scoreDisplays[1].textContent = '0';
+                updateTurnIndicator();
+                
+                document.querySelectorAll('.choice-btn').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                
+                resultDisplay.textContent = `${gameState.player1.name}'s turn to choose...`;
+            });
+
+            // Initialize the game
+            initGame();
+        });
+    </script>
+</body>
+</html>
