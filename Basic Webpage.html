@@ -1,25 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Basic Webpage - Tanaka's Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Activities Quiz | Tanaka's Portfolio</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --olive-green: #6B8E23;
+      --olive-light: #A2B575;
+      --olive-dark: #556B2F;
+      --light-bg: #f9f9f9;
+      --dark-text: #333333;
+      --white-transparent: rgba(255, 255, 255, 0.9);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.8;
+      color: var(--dark-text);
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, var(--light-bg) 0%, var(--olive-light) 50%, var(--olive-dark) 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--olive-dark);
+      margin-bottom: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .nav-links a {
+      color: var(--olive-dark);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      background-color: rgba(107, 142, 35, 0.1);
+    }
+
+    .content-card {
+      background-color: var(--white-transparent);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(5px);
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--olive-dark);
+      margin-top: 0;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, var(--olive-green), var(--olive-light));
+    }
+
+    /* Quiz Styles */
+    .quiz-container {
+      margin-top: 2rem;
+    }
+
+    .quiz-question {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .question-text {
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      color: var(--olive-dark);
+    }
+
+    .options-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      background-color: var(--light-bg);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .option:hover {
+      background-color: var(--olive-light);
+      color: white;
+    }
+
+    .option input {
+      margin-right: 1rem;
+      accent-color: var(--olive-green);
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      max-width: 200px;
+      margin: 2rem auto 0;
+      padding: 1rem;
+      background-color: var(--olive-green);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: var(--olive-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(85, 107, 47, 0.3);
+    }
+
+    .results-container {
+      text-align: center;
+      padding: 2rem;
+      background-color: rgba(107, 142, 35, 0.1);
+      border-radius: 10px;
+      margin-top: 2rem;
+      display: none;
+    }
+
+    .score-display {
+      font-size: 1.5rem;
+      color: var(--olive-dark);
+      margin-bottom: 1rem;
+    }
+
+    .feedback {
+      font-style: italic;
+      margin-top: 1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      
+      .content-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="background-gradient">
-        <div class="container">
-            <nav class="main-nav">
-                <!-- Same navigation as index.html -->
-            </nav>
-            
-            <div class="project-container">
-                <h1>Basic Webpage Project</h1>
-                <div class="project-content">
-                    <!-- Your Week 2 project content goes here -->
-                    <p>This project demonstrates fundamental HTML and CSS skills.</p>
-                </div>
+  <div class="container">
+    <header>
+      <h1>Basic Homepage Activities & Quiz</h1>
+      <div class="nav-links">
+        <a href="#intro"><i class="fas fa-info-circle"></i> Introduction</a>
+        <a href="#quiz"><i class="fas fa-question-circle"></i> Quiz</a>
+      </div>
+    </header>
+
+    <main>
+      <section id="intro" class="content-card">
+        <h2>About These Activities</h2>
+        <p>This interactive quiz tests your understanding of four key web development activities:</p>
+        <ul>
+          <li><strong>Activity 1:</strong> HTML structure review and CSS planning</li>
+          <li><strong>Activity 2:</strong> External CSS implementation</li>
+          <li><strong>Activity 3:</strong> Responsive layouts with Flexbox and Grid</li>
+          <li><strong>Activity 4:</strong> Final debugging and polishing</li>
+        </ul>
+        <p>Each question relates to concepts covered in these activities, helping reinforce your learning.</p>
+      </section>
+
+      <section id="quiz" class="content-card">
+        <h2>Test Your Knowledge</h2>
+        <div class="quiz-container">
+          <form id="quiz-form">
+            <!-- Question 1 -->
+            <div class="quiz-question">
+              <div class="question-text">1. What is the primary benefit of using an external CSS file?</div>
+              <div class="options-container">
+                <label class="option">
+                  <input type="radio" name="q1" value="a"> 
+                  It makes HTML files load faster
+                </label>
+                <label class="option">
+                  <input type="radio" name="q1" value="b"> 
+                  It separates content from presentation
+                </label>
+                <label class="option">
+                  <input type="radio" name="q1" value="c"> 
+                  It reduces the need for HTML tags
+                </label>
+              </div>
             </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question">
+              <div class="question-text">2. Which CSS technique is best for aligning navigation items horizontally?</div>
+              <div class="options-container">
+                <label class="option">
+                  <input type="radio" name="q2" value="a"> 
+                  CSS Grid
+                </label>
+                <label class="option">
+                  <input type="radio" name="q2" value="b"> 
+                  Flexbox
+                </label>
+                <label class="option">
+                  <input type="radio" name="q2" value="c"> 
+                  Float property
+                </label>
+              </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question">
+              <div class="question-text">3. What does the 'mobile-first' approach involve?</div>
+              <div class="options-container">
+                <label class="option">
+                  <input type="radio" name="q3" value="a"> 
+                  Designing only for mobile devices
+                </label>
+                <label class="option">
+                  <input type="radio" name="q3" value="b"> 
+                  Starting with mobile styles then enhancing for larger screens
+                </label>
+                <label class="option">
+                  <input type="radio" name="q3" value="c"> 
+                  Making all elements the same size on every device
+                </label>
+              </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question">
+              <div class="question-text">4. What is the purpose of media queries in responsive design?</div>
+              <div class="options-container">
+                <label class="option">
+                  <input type="radio" name="q4" value="a"> 
+                  To detect user preferences
+                </label>
+                <label class="option">
+                  <input type="radio" name="q4" value="b"> 
+                  To apply different styles based on screen characteristics
+                </label>
+                <label class="option">
+                  <input type="radio" name="q4" value="c"> 
+                  To optimize images for different devices
+                </label>
+              </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question">
+              <div class="question-text">5. Why is commenting important in CSS files?</div>
+              <div class="options-container">
+                <label class="option">
+                  <input type="radio" name="q5" value="a"> 
+                  To reduce file size
+                </label>
+                <label class="option">
+                  <input type="radio" name="q5" value="b"> 
+                  To explain code organization and purpose
+                </label>
+                <label class="option">
+                  <input type="radio" name="q5" value="c"> 
+                  To make the code execute faster
+                </label>
+              </div>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="checkAnswers()">Submit Answers</button>
+          </form>
+
+          <div class="results-container" id="results">
+            <h3>Your Results</h3>
+            <div class="score-display" id="score"></div>
+            <div class="feedback" id="feedback"></div>
+          </div>
         </div>
-    </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    function checkAnswers() {
+      const correctAnswers = {
+        q1: "b",
+        q2: "b",
+        q3: "b",
+        q4: "b",
+        q5: "b"
+      };
+
+      let score = 0;
+      const totalQuestions = Object.keys(correctAnswers).length;
+
+      // Check each answer and provide visual feedback
+      for (const [question, correctAnswer] of Object.entries(correctAnswers)) {
+        const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+        
+        if (selectedOption) {
+          const optionContainer = selectedOption.closest('.option');
+          
+          if (selectedOption.value === correctAnswer) {
+            score++;
+            optionContainer.style.backgroundColor = "rgba(107, 142, 35, 0.2)";
+            optionContainer.style.borderLeft = "4px solid var(--olive-green)";
+          } else {
+            optionContainer.style.backgroundColor = "rgba(198, 40, 40, 0.1)";
+            optionContainer.style.borderLeft = "4px solid #C62828";
+          }
+        }
+      }
+
+      // Display results
+      const resultsContainer = document.getElementById('results');
+      const scoreDisplay = document.getElementById('score');
+      const feedbackDisplay = document.getElementById('feedback');
+      
+      scoreDisplay.innerHTML = `You scored <strong>${score}/${totalQuestions}</strong>`;
+      
+      if (score === totalQuestions) {
+        feedbackDisplay.textContent = "🎉 Excellent! You've mastered these concepts!";
+      } else if (score >= totalQuestions/2) {
+        feedbackDisplay.textContent = "👍 Good job! Review the incorrect answers to improve.";
+      } else {
+        feedbackDisplay.textContent = "📚 Keep learning! Review the activities and try again.";
+      }
+      
+      resultsContainer.style.display = "block";
+      resultsContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>

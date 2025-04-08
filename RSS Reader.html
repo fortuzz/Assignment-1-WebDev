@@ -2,23 +2,248 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>RSS Reader - Tanaka's Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="rss-reader.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessible RSS Reader | Tanaka Fortune Singana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --olive-primary: #6B8E23;
+            --olive-light: #A2B575;
+            --olive-dark: #556B2F;
+            --platinum: #E5E4E2;
+            --jet: #333333;
+            --rich-black: #0D1B2A;
+            --white-transparent: rgba(255, 255, 255, 0.85);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--platinum) 0%, rgba(107, 142, 35, 0.2) 50%, rgba(85, 107, 47, 0.3) 100%);
+            color: var(--jet);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header Styles */
+        .page-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--rich-black);
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--olive-primary), var(--olive-light));
+        }
+
+        /* Content Cards */
+        .content-card {
+            background-color: var(--white-transparent);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* RSS Concept Section */
+        .rss-concept {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .rss-visual {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--olive-light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            color: white;
+        }
+
+        .rss-description {
+            flex: 2;
+        }
+
+        /* Activity Grid */
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .activity-card {
+            background-color: var(--white-transparent);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--olive-primary);
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .activity-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--olive-dark);
+            margin-top: 0;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background-color: rgba(0, 0, 0, 0.08);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: var(--olive-primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--olive-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(85, 107, 47, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .rss-concept {
+                flex-direction: column;
+            }
+            
+            .activity-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="background-gradient">
-        <div class="container">
-            <nav class="main-nav">
-                <!-- Same navigation -->
-            </nav>
-            
-            <div class="project-container">
-                <h1>RSS Reader</h1>
-                <div class="reader-container" id="rssReader">
-                    <!-- Your Week 5 API project -->
+    <div class="container">
+        <h1 class="page-header">Accessible RSS Reader Design</h1>
+        
+        <div class="rss-concept">
+            <div class="rss-visual">
+                <h3>RSS Reader Concept</h3>
+                <p>Content aggregation tool that collects updates from multiple websites in a standardized format.</p>
+                <p>Essential for:</p>
+                <ul>
+                    <li>News consumption</li>
+                    <li>Research</li>
+                    <li>Content monitoring</li>
+                </ul>
+            </div>
+            <div class="rss-description content-card">
+                <h2>Why Accessibility Matters</h2>
+                <p>RSS readers must be accessible to ensure all users can benefit from content aggregation. Key connections to our activities:</p>
+                <ul>
+                    <li><strong>Keyboard Navigation</strong> (Activity 1): Users should navigate feeds without a mouse</li>
+                    <li><strong>Screen Reader Compatibility</strong> (Activity 2): Articles must be properly announced</li>
+                    <li><strong>ARIA Implementation</strong> (Activity 3): Dynamic content needs proper roles</li>
+                </ul>
+                <button class="btn">Learn More About RSS</button>
+            </div>
+        </div>
+        
+        <div class="content-card">
+            <h2>Accessibility Challenges</h2>
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <h3 class="activity-title">Keyboard Navigation</h3>
+                    <p>Test your RSS reader's keyboard operability:</p>
+                    <ol>
+                        <li>Tab through feed items</li>
+                        <li>Check focus visibility</li>
+                        <li>Verify all actions work without mouse</li>
+                    </ol>
+                    <div class="code-block">
+&lt;button tabindex="0" aria-label="Read article: Cybersecurity Trends"&gt;
+    Read Article
+&lt;/button&gt;
+                    </div>
+                </div>
+                
+                <div class="activity-card">
+                    <h3 class="activity-title">Screen Reader Test</h3>
+                    <p>Evaluate content announcement:</p>
+                    <ol>
+                        <li>Check heading hierarchy</li>
+                        <li>Verify image alt text</li>
+                        <li>Test article navigation</li>
+                    </ol>
+                    <div class="code-block">
+&lt;article aria-labelledby="article1-title"&gt;
+    &lt;h3 id="article1-title"&gt;Web Accessibility Trends&lt;/h3&gt;
+    &lt;img src="trends.png" alt="Graph showing accessibility adoption"&gt;
+&lt;/article&gt;
+                    </div>
+                </div>
+                
+                <div class="activity-card">
+                    <h3 class="activity-title">ARIA Implementation</h3>
+                    <p>Enhance dynamic content:</p>
+                    <ol>
+                        <li>Add live regions for updates</li>
+                        <li>Implement proper roles</li>
+                        <li>Manage focus for modals</li>
+                    </ol>
+                    <div class="code-block">
+&lt;div role="feed" aria-busy="false"&gt;
+    &lt;article role="article" aria-posinset="1"&gt;
+        &lt;h3&gt;Latest News&lt;/h3&gt;
+    &lt;/article&gt;
+&lt;/div&gt;
+                    </div>
                 </div>
             </div>
+        </div>
+        
+        <div class="content-card">
+            <h2>Putting It All Together</h2>
+            <p>An accessible RSS reader should:</p>
+            <ul>
+                <li>Use semantic HTML for articles</li>
+                <li>Maintain 4.5:1 color contrast</li>
+                <li>Provide keyboard shortcuts</li>
+                <li>Announce new content updates</li>
+                <li>Offer multiple authentication options</li>
+            </ul>
+            <button class="btn">Download Accessibility Checklist</button>
         </div>
     </div>
 </body>

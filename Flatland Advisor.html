@@ -2,24 +2,355 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Flatland Advisor - Tanaka's Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="flatland.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flatland Business Advisor | Tanaka's Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #6B8E23;
+            --olive-light: #A2B575;
+            --olive-dark: #556B2F;
+            --light-bg: #f9f9f9;
+            --dark-text: #333333;
+            --white-transparent: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.8;
+            color: var(--dark-text);
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--light-bg) 0%, var(--olive-light) 50%, var(--olive-dark) 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .advisor-card {
+            background-color: var(--white-transparent);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-top: 2rem;
+            backdrop-filter: blur(5px);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--olive-dark);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--olive-green), var(--olive-light));
+        }
+
+        .intro-section {
+            margin-bottom: 2rem;
+        }
+
+        .activity-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .shape-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .shape-option {
+            padding: 1rem;
+            background-color: white;
+            border: 2px solid var(--olive-light);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .shape-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(85, 107, 47, 0.2);
+        }
+
+        .shape-option.selected {
+            background-color: var(--olive-green);
+            color: white;
+            border-color: var(--olive-dark);
+        }
+
+        .shape-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .advice-output {
+            padding: 1.5rem;
+            background-color: rgba(107, 142, 35, 0.1);
+            border-radius: 10px;
+            border-left: 5px solid var(--olive-green);
+            min-height: 200px;
+        }
+
+        .strengths-challenges {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            background-color: var(--olive-green);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background-color: var(--olive-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(85, 107, 47, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .activity-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .shape-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .strengths-challenges {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="background-gradient">
-        <div class="container">
-            <nav class="main-nav">
-                <!-- Same navigation -->
-            </nav>
+    <div class="container">
+        <div class="advisor-card">
+            <h1>Flatland Business Advisor</h1>
             
-            <div class="project-container">
-                <h1>Flatland Business Advisor</h1>
-                <div class="advisor-interface" id="advisorApp">
-                    <!-- Your Week 4 DOM manipulation project -->
+            <div class="intro-section">
+                <p>Welcome to the Flatland Business Advisor, where geometric principles meet modern business strategy. Inspired by Edwin A. Abbott's mathematical allegory, this tool provides unique insights based on your business's structural characteristics.</p>
+                
+                <h3>How It Works:</h3>
+                <ol>
+                    <li>Select the shape that best represents your business structure</li>
+                    <li>Receive tailored advice based on geometric properties</li>
+                    <li>Explore strengths and challenges specific to your configuration</li>
+                </ol>
+                
+                <p>This interactive demonstration showcases DOM manipulation principles while providing practical business insights.</p>
+            </div>
+            
+            <div class="activity-container">
+                <div>
+                    <h3>Select Your Business Shape:</h3>
+                    <div class="shape-selector">
+                        <div class="shape-option" data-shape="line">
+                            <div class="shape-icon">📏</div>
+                            <div>Linear</div>
+                        </div>
+                        <div class="shape-option" data-shape="triangle">
+                            <div class="shape-icon">🔺</div>
+                            <div>Triangular</div>
+                        </div>
+                        <div class="shape-option" data-shape="square">
+                            <div class="shape-icon">⬛</div>
+                            <div>Square</div>
+                        </div>
+                        <div class="shape-option" data-shape="pentagon">
+                            <div class="shape-icon">⬟</div>
+                            <div>Pentagonal</div>
+                        </div>
+                        <div class="shape-option" data-shape="hexagon">
+                            <div class="shape-icon">⬡</div>
+                            <div>Hexagonal</div>
+                        </div>
+                        <div class="shape-option" data-shape="circle">
+                            <div class="shape-icon">⭕</div>
+                            <div>Circular</div>
+                        </div>
+                    </div>
+                    
+                    <button class="action-btn" id="analyzeBtn">
+                        <i class="fas fa-chart-line"></i> Analyze Structure
+                    </button>
+                </div>
+                
+                <div class="advice-output" id="adviceOutput">
+                    <p>Select a business shape to see personalized advice appear here.</p>
+                    <p>This area demonstrates dynamic DOM updates based on user interaction.</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Business advice data
+        const shapeAnalysis = {
+            line: {
+                title: "Linear Business Model Analysis",
+                summary: "Your streamlined one-dimensional structure offers efficiency but may lack adaptability.",
+                advice: "Consider introducing branching strategies to create redundancy without sacrificing your core efficiency.",
+                strengths: [
+                    "Clear operational flow",
+                    "Minimal overhead costs",
+                    "Easy to scale lengthwise"
+                ],
+                challenges: [
+                    "Vulnerable to disruptions",
+                    "Limited perspective from single dimension",
+                    "Difficult to pivot quickly"
+                ]
+            },
+            triangle: {
+                title: "Triangular Hierarchy Analysis",
+                summary: "Your pyramidal structure provides stability through clear leadership channels.",
+                advice: "Strengthen cross-strata communication to prevent information silos between levels.",
+                strengths: [
+                    "Clear chain of command",
+                    "Progressive responsibility distribution",
+                    "Stable foundational support"
+                ],
+                challenges: [
+                    "Potential communication bottlenecks",
+                    "Resistance to unconventional ideas",
+                    "Over-reliance on base-level workers"
+                ]
+            },
+            // Additional shapes would follow same pattern
+            square: {
+                title: "Square Model Analysis",
+                summary: "Your balanced four-sided approach provides excellent stability and consistency.",
+                advice: "Introduce some diagonal connections to improve communication speed without losing stability.",
+                strengths: [
+                    "Equal attention to all aspects",
+                    "Predictable outcomes",
+                    "Strong structural integrity"
+                ],
+                challenges: [
+                    "Resistant to change",
+                    "Potential for rigid thinking",
+                    "Limited adaptability to new trends"
+                ]
+            }
+        };
+
+        // DOM Elements
+        const shapeOptions = document.querySelectorAll('.shape-option');
+        const adviceOutput = document.getElementById('adviceOutput');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        
+        // Currently selected shape
+        let selectedShape = null;
+
+        // Event Listeners
+        shapeOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                shapeOptions.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Store selected shape
+                selectedShape = this.dataset.shape;
+            });
+        });
+
+        analyzeBtn.addEventListener('click', function() {
+            if (!selectedShape) {
+                adviceOutput.innerHTML = `
+                    <div style="color: #C62828;">
+                        <i class="fas fa-exclamation-circle"></i> Please select a business shape first.
+                    </div>
+                `;
+                return;
+            }
+            
+            const analysis = shapeAnalysis[selectedShape];
+            
+            // Generate and display advice
+            adviceOutput.innerHTML = `
+                <h3>${analysis.title}</h3>
+                <p><strong>${analysis.summary}</strong></p>
+                <p>${analysis.advice}</p>
+                
+                <div class="strengths-challenges">
+                    <div>
+                        <h4><i class="fas fa-check-circle" style="color: #2E7D32;"></i> Strengths</h4>
+                        <ul>
+                            ${analysis.strengths.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-exclamation-triangle" style="color: #C62828;"></i> Challenges</h4>
+                        <ul>
+                            ${analysis.challenges.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1rem; font-size: 0.9em; color: #555;">
+                    <i class="fas fa-lightbulb"></i> Tip: This interactive display showcases DOM manipulation by dynamically updating content based on user selection.
+                </div>
+            `;
+            
+            // Animation for visual feedback
+            adviceOutput.style.animation = 'none';
+            void adviceOutput.offsetWidth; // Trigger reflow
+            adviceOutput.style.animation = 'fadeIn 0.5s ease';
+        });
+
+        // Add simple animation
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            </style>
+        `);
+    </script>
 </body>
 </html>

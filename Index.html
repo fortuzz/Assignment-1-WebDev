@@ -10,59 +10,331 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --olive-primary: #6B8E23;
+            --olive-light: #A2B575;
+            --olive-dark: #556B2F;
+            --platinum: #E5E4E2;
+            --jet: #333333;
+            --rich-black: #0D1B2A;
+            --white-transparent: rgba(255, 255, 255, 0.85);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.8;
+            color: var(--jet);
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--platinum) 0%, rgba(107, 142, 35, 0.2) 50%, rgba(85, 107, 47, 0.3) 100%);
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Animated Navigation */
+        .dancing-nav {
+            position: relative;
+            z-index: 100;
+            margin-bottom: 3rem;
+        }
+
+        .dancing-nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            list-style: none;
+            padding: 1.5rem 0;
+            margin: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 50px 50px;
+        }
+
+        .nav-link {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--rich-black);
+            font-size: 1.2rem;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .nav-link:hover {
+            color: var(--olive-primary);
+            transform: translateY(-5px) scale(1.05);
+            text-shadow: 0 5px 15px rgba(107, 142, 35, 0.4);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--olive-primary);
+            transition: width 0.4s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Active nav link */
+        .nav-link.active {
+            background-color: var(--olive-primary);
+            color: white !important;
+            border-radius: 4px;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            display: flex;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .image-column {
+            flex: 1;
+            position: relative;
+            min-width: 400px;
+        }
+
+        .profile-pic {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 15px;
+            border: 8px solid white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: all 0.5s ease;
+        }
+
+        .profile-pic:hover {
+            transform: perspective(1000px) rotateY(0deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .text-column {
+            flex: 1.2;
+        }
+
+        /* Typography */
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--rich-black);
+            margin: 0 0 0.5rem 0;
+            line-height: 1.2;
+        }
+
+        .name span {
+            color: var(--olive-primary);
+            display: inline-block;
+        }
+
+        .title {
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin: 0 0 1.5rem 0;
+            letter-spacing: 1px;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: var(--olive-dark);
+            margin: 0 0 2rem 0;
+            position: relative;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .tagline::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--olive-primary), var(--olive-light));
+        }
+
+        /* Summary */
+        .summary {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(5px);
+            font-size: 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .contact-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--olive-dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--jet);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+        }
+
+        .contact-link:hover {
+            background-color: rgba(107, 142, 35, 0.1);
+            transform: translateX(10px);
+        }
+
+        .contact-link i {
+            color: var(--olive-primary);
+            font-size: 1.3rem;
+            width: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover i {
+            transform: scale(1.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .profile-section {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .image-column {
+                min-width: auto;
+            }
+            
+            .profile-pic {
+                max-width: 400px;
+            }
+            
+            .dancing-nav ul {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .name {
+                font-size: 2.5rem;
+            }
+            
+            .dancing-nav ul {
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-link {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="background-gradient">
+    <div class="container">
         <!-- Animated Navigation -->
         <nav class="dancing-nav">
             <ul>
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="basic-webpage.html" class="nav-link">Basic Webpage</a></li>
-                <li><a href="rock-paper-scissors.html" class="nav-link">Rock Paper Scissors</a></li>
-                <li><a href="flatland-advisor.html" class="nav-link">Flatland Advisor</a></li>
-                <li><a href="rss-reader.html" class="nav-link">RSS Reader</a></li>
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="Basic%20Webpage.html" class="nav-link">Basic Webpage</a></li>
+                <li><a href="Rock%20Paper%20Scissors.html" class="nav-link">Rock Paper Scissors</a></li>
+                <li><a href="Flatland%20Advisor.html" class="nav-link">Flatland Advisor</a></li>
+                <li><a href="RSS%20Reader.html" class="nav-link">RSS Reader</a></li>
             </ul>
         </nav>
 
-        <div class="container">
-            <div class="profile-section">
-                <!-- Enlarged Profile Picture Column -->
-                <div class="image-column">
-                    <img src="picture.jpeg" alt="Tanaka Singana" class="profile-pic">
-                </div>
+        <div class="profile-section">
+            <!-- Enlarged Profile Picture Column -->
+            <div class="image-column">
+                <img src="picture.jpeg" alt="Tanaka Singana" class="profile-pic">
+            </div>
+            
+            <!-- Text Column -->
+            <div class="text-column">
+                <h1 class="name">Tanaka Fortune <span>Singana</span></h1>
+                <p class="title">Business Information Systems Student</p>
+                <p class="tagline">Cybersecurity | Web Development | Data Analysis</p>
                 
-                <!-- Text Column -->
-                <div class="text-column">
-                    <h1 class="name">Tanaka Fortune <span>Singana</span></h1>
-                    <p class="title">Business Information Systems Student</p>
-                    <p class="tagline">Cybersecurity | Web Developement | Data Analysis | </p>
-                    
-                    <div class="summary">
-                        <p>BCom in Business Information Systems student at Curtin University Mauritius with expertise in cybersecurity, risk assessment, and full-stack development.</p>
-                    </div>
+                <div class="summary">
+                    <p>BCom in Business Information Systems student at Curtin University Mauritius with expertise in cybersecurity, risk assessment, and full-stack development.</p>
+                </div>
 
-                    <!-- Contact Section -->
-                    <div class="contact-section">
-                        <h2 class="contact-heading">Connect With Me</h2>
-                        <div class="contact-methods">
-                            <a href="tel:+2301234567" class="contact-link">
-                                <i class="fas fa-phone"></i> +230 5472 8669
-                            </a>
-                            <a href="mailto:your.email@example.com" class="contact-link">
-                                <i class="fas fa-envelope"></i> tanakafortu@gmail.com
-                            </a>
-                            <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-link">
-                                <i class="fab fa-linkedin"></i> linkedin.com/Tanaka Singana
-                            </a>
-                        </div>
+                <!-- Contact Section -->
+                <div class="contact-section">
+                    <h2 class="contact-heading">Connect With Me</h2>
+                    <div class="contact-methods">
+                        <a href="tel:+23054728669" class="contact-link">
+                            <i class="fas fa-phone"></i> +230 5472 8669
+                        </a>
+                        <a href="mailto:tanakafortu@gmail.com" class="contact-link">
+                            <i class="fas fa-envelope"></i> tanakafortu@gmail.com
+                        </a>
+                        <a href="https://linkedin.com/in/Tanaka-Singana" target="_blank" class="contact-link">
+                            <i class="fab fa-linkedin"></i> linkedin.com/Tanaka-Singana
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="animations.js"></script>
-    
+    <script>
+        // Highlight active nav link based on current page
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            
+            navLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (currentPage === linkPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
