@@ -1,0 +1,28 @@
+<!-- Same as Step 1 but with added onclick -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flatland Advisor - Step 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="flatland.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Flatland Advisor</h1>
+            <p>Step 2: Simple Interactivity</p>
+        </header>
+        
+        <div class="step-info" id="step-info"></div>
+        
+        <div id="words">Click the square to begin</div>
+        <div id="square" onclick="this.style.backgroundColor='#556B2F'"></div>
+    </div>
+    
+    <script src="flatland.js"></script>
+    <script>
+        initStep(2);
+    </script>
+</body>
+</html>

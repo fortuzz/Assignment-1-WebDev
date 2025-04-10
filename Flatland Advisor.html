@@ -2,15 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flatland Business Advisor | Tanaka's Portfolio</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Flatland Advisor Evolution</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        /* Color Variables */
         :root {
             --olive-green: #6B8E23;
             --olive-light: #A2B575;
@@ -18,11 +14,14 @@
             --light-bg: #f9f9f9;
             --dark-text: #333333;
             --white-transparent: rgba(255, 255, 255, 0.9);
+            --blue-primary: #4a6fa5;
+            --blue-dark: #3a5a80;
         }
 
+        /* Base Styles */
         body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.8;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
             color: var(--dark-text);
             margin: 0;
             padding: 0;
@@ -31,326 +30,584 @@
             min-height: 100vh;
         }
 
+        /* Navigation Bar - Matching Screenshot */
+        .main-nav {
+            background-color: var(--white-transparent);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: var(--olive-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(107, 142, 35, 0.1);
+        }
+
+        .nav-links a.active {
+            background-color: var(--olive-green);
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
 
-        .advisor-card {
-            background-color: var(--white-transparent);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
             padding: 2rem;
-            margin-top: 2rem;
+            background-color: var(--white-transparent);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(5px);
         }
 
-        h1, h2, h3 {
+        h1 {
             font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--olive-dark);
+            margin-top: 0;
+        }
+
+        /* Tabs Navigation */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--white-transparent);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tab-button:hover {
+            background-color: rgba(107, 142, 35, 0.1);
+        }
+
+        .tab-button.active {
+            background-color: var(--olive-green);
+            color: white;
+        }
+
+        /* Demo Container */
+        .demo-container {
+            background-color: var(--white-transparent);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Step Info */
+        .step-info {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: rgba(107, 142, 35, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--olive-green);
+        }
+
+        /* Flatland Elements */
+        #flatland-demo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        #words {
+            width: 300px;
+            min-height: 200px;
+            font-size: 1.5rem;
+            padding: 1.5rem;
+            border-left: 5px solid var(--olive-green);
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
             color: var(--olive-dark);
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(to right, var(--olive-green), var(--olive-light));
-        }
-
-        .intro-section {
-            margin-bottom: 2rem;
-        }
-
-        .activity-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .shape-selector {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .shape-option {
-            padding: 1rem;
-            background-color: white;
-            border: 2px solid var(--olive-light);
-            border-radius: 8px;
-            text-align: center;
+        #square {
+            width: 200px;
+            height: 200px;
+            background: var(--olive-green);
             cursor: pointer;
+            border-radius: 20px;
             transition: all 0.3s ease;
             display: flex;
-            flex-direction: column;
             align-items: center;
-        }
-
-        .shape-option:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(85, 107, 47, 0.2);
-        }
-
-        .shape-option.selected {
-            background-color: var(--olive-green);
+            justify-content: center;
             color: white;
-            border-color: var(--olive-dark);
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 15px 35px rgba(85, 107, 47, 0.4);
+            border: none;
+            outline: none;
         }
 
-        .shape-icon {
+        #square:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(85, 107, 47, 0.5);
+        }
+
+        /* Stats Panel */
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            min-width: 120px;
+        }
+
+        .stat-value {
             font-size: 2rem;
+            font-weight: 700;
+            color: var(--olive-green);
             margin-bottom: 0.5rem;
         }
 
-        .advice-output {
-            padding: 1.5rem;
-            background-color: rgba(107, 142, 35, 0.1);
-            border-radius: 10px;
-            border-left: 5px solid var(--olive-green);
-            min-height: 200px;
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--dark-text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .strengths-challenges {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .action-btn {
-            background-color: var(--olive-green);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .action-btn:hover {
-            background-color: var(--olive-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(85, 107, 47, 0.3);
-        }
-
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .activity-container {
-                grid-template-columns: 1fr;
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 0.8rem;
             }
             
-            .shape-selector {
-                grid-template-columns: repeat(2, 1fr);
+            h1 {
+                font-size: 2.2rem;
             }
             
-            .strengths-challenges {
-                grid-template-columns: 1fr;
+            #words {
+                width: 250px;
+                font-size: 1.2rem;
+                min-height: 150px;
+                padding: 1rem;
+            }
+            
+            #square {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Basic%20Webpage.html">Basic Webpage</a></li>
+                <li><a href="Rock%20Paper%20Scissors.html">Rock Paper Scissors</a></li>
+                <li><a href="Flatland%20Advisor.html" class="active">Flatland Advisor</a></li>
+                <li><a href="RSS%20Reader.html">RSS Reader</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
-        <div class="advisor-card">
-            <h1>Flatland Business Advisor</h1>
-            
-            <div class="intro-section">
-                <p>Welcome to the Flatland Business Advisor, where geometric principles meet modern business strategy. Inspired by Edwin A. Abbott's mathematical allegory, this tool provides unique insights based on your business's structural characteristics.</p>
-                
-                <h3>How It Works:</h3>
-                <ol>
-                    <li>Select the shape that best represents your business structure</li>
-                    <li>Receive tailored advice based on geometric properties</li>
-                    <li>Explore strengths and challenges specific to your configuration</li>
-                </ol>
-                
-                <p>This interactive demonstration showcases DOM manipulation principles while providing practical business insights.</p>
+        <header class="header">
+            <h1>Flatland Advisor Evolution</h1>
+            <p>From Basic Structure to Interactive Wisdom Generator</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" data-step="1">Step 1</button>
+            <button class="tab-button" data-step="2">Step 2</button>
+            <button class="tab-button" data-step="3">Step 3</button>
+            <button class="tab-button" data-step="4">Step 4</button>
+            <button class="tab-button" data-step="5">Step 5</button>
+            <button class="tab-button" data-step="6">Step 6</button>
+            <button class="tab-button" data-step="7">Step 7</button>
+            <button class="tab-button" data-step="8">Step 8</button>
+        </div>
+
+        <div class="demo-container">
+            <div class="step-info" id="step-info">
+                <h3>Step 1: Basic Structure</h3>
+                <p>Initial HTML structure with static elements and minimal styling</p>
             </div>
             
-            <div class="activity-container">
-                <div>
-                    <h3>Select Your Business Shape:</h3>
-                    <div class="shape-selector">
-                        <div class="shape-option" data-shape="line">
-                            <div class="shape-icon">📏</div>
-                            <div>Linear</div>
-                        </div>
-                        <div class="shape-option" data-shape="triangle">
-                            <div class="shape-icon">🔺</div>
-                            <div>Triangular</div>
-                        </div>
-                        <div class="shape-option" data-shape="square">
-                            <div class="shape-icon">⬛</div>
-                            <div>Square</div>
-                        </div>
-                        <div class="shape-option" data-shape="pentagon">
-                            <div class="shape-icon">⬟</div>
-                            <div>Pentagonal</div>
-                        </div>
-                        <div class="shape-option" data-shape="hexagon">
-                            <div class="shape-icon">⬡</div>
-                            <div>Hexagonal</div>
-                        </div>
-                        <div class="shape-option" data-shape="circle">
-                            <div class="shape-icon">⭕</div>
-                            <div>Circular</div>
-                        </div>
-                    </div>
-                    
-                    <button class="action-btn" id="analyzeBtn">
-                        <i class="fas fa-chart-line"></i> Analyze Structure
-                    </button>
+            <div id="flatland-demo">
+                <div id="words">Click the square to begin</div>
+                <div id="square"></div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-value" id="click-count">0</div>
+                    <div class="stat-label">Interactions</div>
                 </div>
-                
-                <div class="advice-output" id="adviceOutput">
-                    <p>Select a business shape to see personalized advice appear here.</p>
-                    <p>This area demonstrates dynamic DOM updates based on user interaction.</p>
+                <div class="stat-box">
+                    <div class="stat-value" id="phrase-count">0</div>
+                    <div class="stat-label">Discoveries</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="dimension">2D</div>
+                    <div class="stat-label">Dimension</div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Business advice data
-        const shapeAnalysis = {
-            line: {
-                title: "Linear Business Model Analysis",
-                summary: "Your streamlined one-dimensional structure offers efficiency but may lack adaptability.",
-                advice: "Consider introducing branching strategies to create redundancy without sacrificing your core efficiency.",
-                strengths: [
-                    "Clear operational flow",
-                    "Minimal overhead costs",
-                    "Easy to scale lengthwise"
-                ],
-                challenges: [
-                    "Vulnerable to disruptions",
-                    "Limited perspective from single dimension",
-                    "Difficult to pivot quickly"
-                ]
-            },
-            triangle: {
-                title: "Triangular Hierarchy Analysis",
-                summary: "Your pyramidal structure provides stability through clear leadership channels.",
-                advice: "Strengthen cross-strata communication to prevent information silos between levels.",
-                strengths: [
-                    "Clear chain of command",
-                    "Progressive responsibility distribution",
-                    "Stable foundational support"
-                ],
-                challenges: [
-                    "Potential communication bottlenecks",
-                    "Resistance to unconventional ideas",
-                    "Over-reliance on base-level workers"
-                ]
-            },
-            // Additional shapes would follow same pattern
-            square: {
-                title: "Square Model Analysis",
-                summary: "Your balanced four-sided approach provides excellent stability and consistency.",
-                advice: "Introduce some diagonal connections to improve communication speed without losing stability.",
-                strengths: [
-                    "Equal attention to all aspects",
-                    "Predictable outcomes",
-                    "Strong structural integrity"
-                ],
-                challenges: [
-                    "Resistant to change",
-                    "Potential for rigid thinking",
-                    "Limited adaptability to new trends"
-                ]
-            }
-        };
-
-        // DOM Elements
-        const shapeOptions = document.querySelectorAll('.shape-option');
-        const adviceOutput = document.getElementById('adviceOutput');
-        const analyzeBtn = document.getElementById('analyzeBtn');
+        // State variables
+        let clickCount = 0;
+        let phraseCount = 0;
+        let dimensionState = 2;
+        let currentStep = 1;
         
-        // Currently selected shape
-        let selectedShape = null;
+        // DOM elements
+        const wordsEl = document.getElementById('words');
+        const squareEl = document.getElementById('square');
+        const stepInfoEl = document.getElementById('step-info');
+        const clickCountEl = document.getElementById('click-count');
+        const phraseCountEl = document.getElementById('phrase-count');
+        const dimensionEl = document.getElementById('dimension');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        
+        // Step information
+        const steps = [
+            {
+                title: "Step 1: Basic Structure",
+                description: "Initial HTML structure with static elements and minimal styling",
+                init: function() {
+                    wordsEl.textContent = "Click the square to begin";
+                    squareEl.textContent = "";
+                    squareEl.style.backgroundColor = "#6B8E23";
+                    squareEl.style.borderRadius = "20px";
+                    resetStats();
+                    removeAllEventListeners();
+                }
+            },
+            {
+                title: "Step 2: Simple Interactivity",
+                description: "Adding basic onclick event handlers to elements",
+                init: function() {
+                    wordsEl.textContent = "Click the square to begin";
+                    squareEl.textContent = "";
+                    squareEl.style.backgroundColor = "#6B8E23";
+                    squareEl.style.borderRadius = "20px";
+                    resetStats();
+                    removeAllEventListeners();
+                    
+                    squareEl.onclick = function() {
+                        this.style.backgroundColor = "#556B2F";
+                    };
+                }
+            },
+            {
+                title: "Step 3: Multiple Events",
+                description: "Introducing hover and mouseout effects for richer interaction",
+                init: function() {
+                    wordsEl.textContent = "Interact with the square";
+                    squareEl.textContent = "";
+                    squareEl.style.backgroundColor = "#6B8E23";
+                    squareEl.style.borderRadius = "20px";
+                    resetStats();
+                    removeAllEventListeners();
+                    
+                    squareEl.onclick = function() {
+                        wordsEl.textContent = "Square clicked!";
+                        this.style.backgroundColor = "#8B0000";
+                    };
+                    
+                    squareEl.onmouseover = function() {
+                        this.style.backgroundColor = "#6B8E23";
+                    };
+                    
+                    squareEl.onmouseout = function() {
+                        this.style.backgroundColor = "#A2B575";
+                    };
+                }
+            },
+            {
+                title: "Step 4: Parameterized Function",
+                description: "Consolidating event handlers into reusable functions",
+                init: function() {
+                    wordsEl.textContent = "Interact with the square";
+                    squareEl.textContent = "";
+                    squareEl.style.backgroundColor = "#6B8E23";
+                    squareEl.style.borderRadius = "20px";
+                    resetStats();
+                    removeAllEventListeners();
+                    
+                    function changeColor(color) {
+                        const colors = {
+                            green: "#6B8E23",
+                            gray: "#A2B575",
+                            red: "#8B0000"
+                        };
+                        squareEl.style.backgroundColor = colors[color];
+                        if (color === "red") wordsEl.textContent = "Square clicked!";
+                    }
+                    
+                    squareEl.onclick = function() { changeColor("red"); };
+                    squareEl.onmouseover = function() { changeColor("green"); };
+                    squareEl.onmouseout = function() { changeColor("gray"); };
+                }
+            },
+            {
+                title: "Step 5: JavaScript Event Listeners",
+                description: "Moving from inline events to addEventListener",
+                init: function() {
+                    wordsEl.textContent = "Interact with the square";
+                    squareEl.textContent = "";
+                    squareEl.style.backgroundColor = "#6B8E23";
+                    squareEl.style.borderRadius = "20px";
+                    resetStats();
+                    removeAllEventListeners();
+                    
+                    squareEl.addEventListener("click", function() {
+                        wordsEl.textContent = "Square clicked!";
+                        this.style.backgroundColor = "#8B0000";
+                    });
+                    
+                    squareEl.addEventListener("mouseover", function() {
+                        this.style.backgroundColor = "#6B8E23";
+                    });
+                    
+                    squareEl.addEventListener("mouseout", function() {
+                        this.style.backgroundColor = "#A2B575";
+                    });
+                }
+            },
+            {
+                title: "Step 6: DOM Manipulation",
+                description: "Dynamic content updates and state management",
+                init: function() {
+                    wordsEl.textContent = "Welcome to Flatland! Click the square.";
+                    squareEl.textContent = "";
+                    squareEl.style.backgroundColor = "#6B8E23";
+                    squareEl.style.borderRadius = "20px";
+                    resetStats();
+                    removeAllEventListeners();
+                    
+                    squareEl.addEventListener("click", function() {
+                        wordsEl.textContent = "Square clicked!";
+                        this.style.backgroundColor = "#8B0000";
+                    });
+                    
+                    squareEl.addEventListener("mouseover", function() {
+                        this.style.backgroundColor = "#6B8E23";
+                    });
+                    
+                    squareEl.addEventListener("mouseout", function() {
+                        this.style.backgroundColor = "#A2B575";
+                    });
+                }
+            },
+            {
+                title: "Step 7: Refined Event Handling",
+                description: "Complete JavaScript control with keyboard accessibility",
+                init: function() {
+                    wordsEl.textContent = "Click the square to begin";
+                    squareEl.textContent = "Explore";
+                    squareEl.style.backgroundColor = "#6B8E23";
+                    squareEl.style.borderRadius = "20px";
+                    resetStats();
+                    removeAllEventListeners();
+                    
+                    function handleClick() {
+                        clickCount++;
+                        clickCountEl.textContent = clickCount;
+                        wordsEl.textContent = createFlatlandWisdom();
+                        
+                        // Add pulse animation
+                        squareEl.style.transform = "scale(0.95)";
+                        setTimeout(() => {
+                            squareEl.style.transform = "scale(1.05)";
+                            setTimeout(() => {
+                                squareEl.style.transform = "scale(1)";
+                            }, 200);
+                        }, 200);
+                    }
+                    
+                    squareEl.addEventListener("click", handleClick);
+                    squareEl.addEventListener("keydown", function(e) {
+                        if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            this.click();
+                        }
+                    });
+                }
+            },
+            {
+                title: "Step 8: Final Implementation",
+                description: "External scripts and dimensional wisdom generator",
+                init: function() {
+                    wordsEl.textContent = "Click the square to generate dimensional wisdom";
+                    squareEl.textContent = "Explore";
+                    squareEl.style.backgroundColor = "#6B8E23";
+                    squareEl.style.borderRadius = "20px";
+                    resetStats();
+                    removeAllEventListeners();
+                    
+                    squareEl.addEventListener("click", function() {
+                        clickCount++;
+                        phraseCount++;
+                        clickCountEl.textContent = clickCount;
+                        phraseCountEl.textContent = phraseCount;
+                        
+                        // Change dimension every 5 clicks
+                        if (clickCount % 5 === 0) {
+                            dimensionState = dimensionState === 2 ? 3 : 4;
+                            dimensionEl.textContent = `${dimensionState}D`;
+                            squareEl.style.borderRadius = dimensionState === 2 ? "20px" : dimensionState === 3 ? "50%" : "10px";
+                            squareEl.textContent = dimensionState === 2 ? "Square" : dimensionState === 3 ? "Sphere" : "Cube";
+                        }
+                        
+                        // Generate and display phrase
+                        wordsEl.textContent = createFlatlandWisdom();
+                        
+                        // Add pulse animation
+                        squareEl.style.transform = "scale(0.95)";
+                        setTimeout(() => {
+                            squareEl.style.transform = "scale(1.05)";
+                            setTimeout(() => {
+                                squareEl.style.transform = "scale(1)";
+                            }, 200);
+                        }, 200);
+                    });
 
-        // Event Listeners
-        shapeOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove selected class from all options
-                shapeOptions.forEach(opt => opt.classList.remove('selected'));
+                    // Keyboard accessibility
+                    squareEl.addEventListener("keydown", function(e) {
+                        if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            this.click();
+                        }
+                    });
+                }
+            }
+        ];
+        
+        // Helper functions
+        function createFlatlandWisdom() {
+            const buzz = ["Paradigm-changing", "Multi-tier", "10,000-foot", "Agile", "Customer", "Win-win"];
+            const action = ["empowered", "value-added", "synergy", "creative", "oriented", "focused", "aligned"];
+            const outcome = ["process", "deliverable", "solution", "tipping-point", "strategy", "vision"];
+            
+            const idx_buz = Math.floor(Math.random() * buzz.length);
+            const idx_act = Math.floor(Math.random() * action.length);
+            const idx_out = Math.floor(Math.random() * outcome.length);
+            
+            return buzz[idx_buz] + " " + action[idx_act] + " " + outcome[idx_out];
+        }
+        
+        function removeAllEventListeners() {
+            const newSquare = squareEl.cloneNode(true);
+            squareEl.parentNode.replaceChild(newSquare, squareEl);
+            squareEl = document.getElementById('square');
+            
+            // Reset styles
+            squareEl.style.transform = "";
+        }
+        
+        function resetStats() {
+            clickCount = 0;
+            phraseCount = 0;
+            dimensionState = 2;
+            clickCountEl.textContent = "0";
+            phraseCountEl.textContent = "0";
+            dimensionEl.textContent = "2D";
+        }
+        
+        // Tab switching
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active tab
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
                 
-                // Add selected class to clicked option
-                this.classList.add('selected');
+                // Get step number
+                currentStep = parseInt(button.dataset.step);
                 
-                // Store selected shape
-                selectedShape = this.dataset.shape;
+                // Update step info
+                stepInfoEl.innerHTML = `
+                    <h3>${steps[currentStep-1].title}</h3>
+                    <p>${steps[currentStep-1].description}</p>
+                `;
+                
+                // Initialize the step
+                steps[currentStep-1].init();
             });
         });
-
-        analyzeBtn.addEventListener('click', function() {
-            if (!selectedShape) {
-                adviceOutput.innerHTML = `
-                    <div style="color: #C62828;">
-                        <i class="fas fa-exclamation-circle"></i> Please select a business shape first.
-                    </div>
-                `;
-                return;
-            }
-            
-            const analysis = shapeAnalysis[selectedShape];
-            
-            // Generate and display advice
-            adviceOutput.innerHTML = `
-                <h3>${analysis.title}</h3>
-                <p><strong>${analysis.summary}</strong></p>
-                <p>${analysis.advice}</p>
-                
-                <div class="strengths-challenges">
-                    <div>
-                        <h4><i class="fas fa-check-circle" style="color: #2E7D32;"></i> Strengths</h4>
-                        <ul>
-                            ${analysis.strengths.map(item => `<li>${item}</li>`).join('')}
-                        </ul>
-                    </div>
-                    <div>
-                        <h4><i class="fas fa-exclamation-triangle" style="color: #C62828;"></i> Challenges</h4>
-                        <ul>
-                            ${analysis.challenges.map(item => `<li>${item}</li>`).join('')}
-                        </ul>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 1rem; font-size: 0.9em; color: #555;">
-                    <i class="fas fa-lightbulb"></i> Tip: This interactive display showcases DOM manipulation by dynamically updating content based on user selection.
-                </div>
-            `;
-            
-            // Animation for visual feedback
-            adviceOutput.style.animation = 'none';
-            void adviceOutput.offsetWidth; // Trigger reflow
-            adviceOutput.style.animation = 'fadeIn 0.5s ease';
-        });
-
-        // Add simple animation
-        document.head.insertAdjacentHTML('beforeend', `
-            <style>
-                @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(10px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            </style>
-        `);
+        
+        // Initialize first step
+        steps[0].init();
     </script>
 </body>
 </html>

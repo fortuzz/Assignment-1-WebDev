@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flatland Advisor - Step 4</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="flatland.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Flatland Advisor</h1>
+            <p>Step 4: Parameterized Function</p>
+        </header>
+        
+        <div class="step-info" id="step-info"></div>
+        
+        <div id="words">Interact with the square</div>
+        <div id="square" 
+             onclick="changeColor('red')" 
+             onmouseover="changeColor('green')" 
+             onmouseout="changeColor('gray')"></div>
+    </div>
+    
+    <script>
+    function changeColor(color) {
+        const colors = {
+            green: '#6B8E23',
+            gray: '#A2B575',
+            red: '#8B0000'
+        };
+        document.getElementById('square').style.backgroundColor = colors[color];
+    }
+    </script>
+    
+    <script src="flatland.js"></script>
+    <script>
+        initStep(4);
+    </script>
+</body>
+</html>

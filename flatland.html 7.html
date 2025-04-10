@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flatland Advisor - Step 7</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="flatland.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Flatland Advisor</h1>
+            <p>Step 7: Refined Event Handling</p>
+        </header>
+        
+        <div class="step-info" id="step-info"></div>
+        
+        <div id="words"></div>
+        <button id="square">Explore</button>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-value" id="click-count">0</div>
+                <div class="stat-label">Interactions</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const square = document.getElementById('square');
+        const words = document.getElementById('words');
+        let clickCount = 0;
+        
+        function handleClick() {
+            clickCount++;
+            document.getElementById('click-count').textContent = clickCount;
+            words.textContent = createFlatlandWisdom();
+            
+            // Add pulse animation
+            square.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                square.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    square.style.transform = 'scale(1)';
+                }, 200);
+            }, 200);
+        }
+        
+        square.addEventListener('click', handleClick);
+        square.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+    </script>
+    
+    <script src="flatland.js"></script>
+    <script>
+        initStep(7);
+    </script>
+</body>
+</html>

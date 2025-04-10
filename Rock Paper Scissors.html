@@ -7,7 +7,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -20,6 +20,51 @@
             --white-transparent: rgba(255, 255, 255, 0.9);
         }
 
+       /* Navigation Bar - Matching Screenshot */
+    .main-nav {
+      background-color: var(--white-transparent);
+      padding: 1rem 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      font-family:'Playfair Display', serif; 
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: var(--olive-dark);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      background-color: rgba(107, 142, 35, 0.1);
+    }
+
+    .nav-links a.active {
+      background-color: var(--olive-green);
+      color: white;
+      font-weight: 600;
+    }
+
+        /* Game Styles */
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
@@ -52,6 +97,7 @@
             color: var(--olive-dark);
             margin-top: 0;
             text-align: center;
+            animation: fadeInDown 0.8s ease;
         }
 
         .players-container {
@@ -69,6 +115,11 @@
             padding: 1.5rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .player-section:hover {
+            transform: translateY(-5px);
         }
 
         .player-header {
@@ -91,6 +142,11 @@
             color: var(--olive-dark);
             cursor: pointer;
             font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .edit-name:hover {
+            transform: scale(1.2);
         }
 
         .choices {
@@ -113,20 +169,23 @@
             justify-content: center;
             font-size: 2rem;
             color: var(--olive-dark);
+            animation: bounceIn 0.5s ease;
         }
 
         .choice-btn:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(10deg);
             background-color: var(--olive-light);
             color: white;
+            box-shadow: 0 5px 15px rgba(85, 107, 47, 0.3);
         }
 
         .choice-btn.selected {
             background-color: var(--olive-green);
             color: white;
             border-color: var(--olive-dark);
-            transform: scale(1.1);
+            transform: scale(1.2);
             box-shadow: 0 0 20px rgba(107, 142, 35, 0.5);
+            animation: pulse 0.5s infinite alternate;
         }
 
         .result-area {
@@ -136,6 +195,7 @@
             border-radius: 10px;
             border-left: 5px solid var(--olive-green);
             text-align: center;
+            animation: fadeIn 0.8s ease;
         }
 
         #result {
@@ -156,6 +216,12 @@
         .score {
             font-weight: 600;
             color: var(--olive-dark);
+            transition: all 0.3s ease;
+        }
+
+        .score.changed {
+            transform: scale(1.5);
+            color: var(--olive-green);
         }
 
         #reset-btn {
@@ -169,17 +235,20 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            animation: pulse 2s infinite;
         }
 
         #reset-btn:hover {
             background-color: var(--olive-dark);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(85, 107, 47, 0.3);
+            animation: none;
         }
 
         .player-turn .player-section {
             position: relative;
             box-shadow: 0 0 0 3px var(--olive-green);
+            animation: pulseBorder 1.5s infinite;
         }
 
         .player-turn .player-section::after {
@@ -193,36 +262,67 @@
             animation: pulse 1s infinite;
         }
 
+        /* Animations */
         @keyframes pulse {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
+            0% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.5; transform: scale(1); }
         }
 
-        .name-input {
-            font-family: 'Poppins', sans-serif;
-            padding: 0.5rem;
-            border: 2px solid var(--olive-light);
-            border-radius: 5px;
-            font-size: 1rem;
-            width: 70%;
+        @keyframes pulseBorder {
+            0% { box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.5); }
+            50% { box-shadow: 0 0 0 6px rgba(107, 142, 35, 0.8); }
+            100% { box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.5); }
         }
 
-        .save-name {
-            background-color: var(--olive-green);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 0.5rem 1rem;
-            margin-left: 0.5rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        @keyframes bounceIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
         }
 
-        .save-name:hover {
-            background-color: var(--olive-dark);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease;
+        }
+
+        .celebrate {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .celebrate::after {
+            content: "🎉";
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            animation: confetti 2s ease-out;
+            opacity: 0;
+        }
+
+        @keyframes confetti {
+            0% { transform: translateY(0) translateX(-50%) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100px) translateX(-50%) rotate(360deg); opacity: 0; }
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .players-container {
                 flex-direction: column;
@@ -241,12 +341,29 @@
             h1 {
                 font-size: 2.2rem;
             }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Main Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Basic%20Webpage.html">Basic Webpage</a></li>
+                <li><a href="Rock%20Paper%20Scissors.html" class="active">Rock Paper Scissors</a></li>
+                <li><a href="Flatland%20Advisor.html">Flatland Advisor</a></li>
+                <li><a href="RSS%20Reader.html">RSS Reader</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
-        
         <div class="game-card">
             <h1>Rock Paper Scissors</h1>
             <p style="text-align: center;">Challenge a friend to an epic duel!</p>
@@ -281,7 +398,7 @@
                 </div>
             </div>
             
-            <div class="result-area">
+            <div class="result-area" id="result-area">
                 <div id="result">Player 1's turn to choose...</div>
                 <div class="score-display">
                     <div><span id="player1-score-name">Player 1</span>: <span class="score" id="score1">0</span></div>
@@ -292,7 +409,28 @@
         </div>
     </div>
 
+    <!-- Audio elements for sound effects -->
+    <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" preload="auto"></audio>
+    <audio id="winSound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" preload="auto"></audio>
+    <audio id="loseSound" src="https://assets.mixkit.co/sfx/preview/mixkit-retro-arcade-lose-2027.mp3" preload="auto"></audio>
+    <audio id="tieSound" src="https://assets.mixkit.co/sfx/preview/mixkit-neutral-game-notification-951.mp3" preload="auto"></audio>
+
     <script>
+        // Highlight current page in navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            navLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (currentPage === linkPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             // Game state
             const gameState = {
@@ -308,6 +446,12 @@
                 scores: [0, 0]
             };
 
+            // Sound effects
+            const clickSound = document.getElementById('clickSound');
+            const winSound = document.getElementById('winSound');
+            const loseSound = document.getElementById('loseSound');
+            const tieSound = document.getElementById('tieSound');
+
             // DOM elements
             const choiceButtons = document.querySelectorAll('.choice-btn');
             const resultDisplay = document.getElementById('result');
@@ -320,11 +464,18 @@
                 document.getElementById('player2-score-name')
             ];
             const resetBtn = document.getElementById('reset-btn');
+            const resultArea = document.getElementById('result-area');
 
             // Initialize the game
             function initGame() {
                 updateTurnIndicator();
                 updateScoreNames();
+            }
+
+            // Play sound effect
+            function playSound(sound) {
+                sound.currentTime = 0;
+                sound.play().catch(e => console.log("Sound playback prevented:", e));
             }
 
             // Update whose turn it is
@@ -346,6 +497,7 @@
 
             // Edit player name
             window.editName = function(player) {
+                playSound(clickSound);
                 const currentName = gameState[player].name;
                 const newName = prompt(`Enter ${player}'s name:`, currentName);
                 
@@ -368,6 +520,8 @@
                     // Only allow current player to choose
                     if (player !== gameState.currentPlayer) return;
                     
+                    playSound(clickSound);
+                    
                     // Get the choice
                     const choice = button.dataset.choice;
                     gameState[player].choice = choice;
@@ -381,13 +535,20 @@
                     // Switch to next player or determine result
                     if (gameState.currentPlayer === 'player1') {
                         gameState.currentPlayer = 'player2';
+                        updateTurnIndicator();
                     } else {
-                        determineWinner();
+                        setTimeout(determineWinner, 500); // Small delay for animation
                     }
-                    
-                    updateTurnIndicator();
                 });
             });
+
+            // Animate score change
+            function animateScore(scoreElement) {
+                scoreElement.classList.add('changed');
+                setTimeout(() => {
+                    scoreElement.classList.remove('changed');
+                }, 500);
+            }
 
             // Determine the winner
             function determineWinner() {
@@ -397,6 +558,11 @@
                 
                 if (p1Choice === p2Choice) {
                     result = "It's a tie!";
+                    playSound(tieSound);
+                    resultArea.classList.add('shake');
+                    setTimeout(() => {
+                        resultArea.classList.remove('shake');
+                    }, 500);
                 } else if (
                     (p1Choice === 'rock' && p2Choice === 'scissors') ||
                     (p1Choice === 'paper' && p2Choice === 'rock') ||
@@ -404,9 +570,21 @@
                 ) {
                     result = `${gameState.player1.name} wins!`;
                     gameState.scores[0]++;
+                    animateScore(scoreDisplays[0]);
+                    playSound(winSound);
+                    resultArea.classList.add('celebrate');
+                    setTimeout(() => {
+                        resultArea.classList.remove('celebrate');
+                    }, 2000);
                 } else {
                     result = `${gameState.player2.name} wins!`;
                     gameState.scores[1]++;
+                    animateScore(scoreDisplays[1]);
+                    playSound(loseSound);
+                    resultArea.classList.add('shake');
+                    setTimeout(() => {
+                        resultArea.classList.remove('shake');
+                    }, 500);
                 }
                 
                 resultDisplay.textContent = `${gameState.player1.name} chose ${p1Choice}, ${gameState.player2.name} chose ${p2Choice}. ${result}`;
@@ -429,6 +607,7 @@
 
             // Reset game
             resetBtn.addEventListener('click', () => {
+                playSound(clickSound);
                 gameState.player1.choice = null;
                 gameState.player2.choice = null;
                 gameState.currentPlayer = 'player1';

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flatland Advisor - Step 5</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="flatland.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Flatland Advisor</h1>
+            <p>Step 5: JavaScript Event Listeners</p>
+        </header>
+        
+        <div class="step-info" id="step-info"></div>
+        
+        <div id="words">Interact with the square</div>
+        <div id="square"></div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const square = document.getElementById('square');
+        
+        square.addEventListener('click', function() {
+            this.style.backgroundColor = '#8B0000';
+        });
+        
+        square.addEventListener('mouseover', function() {
+            this.style.backgroundColor = '#6B8E23';
+        });
+        
+        square.addEventListener('mouseout', function() {
+            this.style.backgroundColor = '#A2B575';
+        });
+    });
+    </script>
+    
+    <script src="flatland.js"></script>
+    <script>
+        initStep(5);
+    </script>
+</body>
+</html>
